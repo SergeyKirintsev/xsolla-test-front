@@ -1,38 +1,90 @@
-.App {
-  text-align: center;
+.container {
+  outline: 1px solid red;
+  max-width: 1440px;
+  padding: 100px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  /*text-align: center;*/
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header__title {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 66px;
+  /* identical to box height */
+
+
+  color: #2E282C;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 1fr 1fr;
 }
 
-.App-link {
-  color: #61dafb;
+.cards__item {
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cards__img {
+  width: 100%;
+  max-height: 400px;
+  height: 100%;
+  border-radius: 6px;
 }
+
+.cards__date {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 6px;
+
+  padding: 9px;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 66px;
+  /* identical to box height */
+
+
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.cards__title {
+  margin: 0;
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 66px;
+  /* identical to box height */
+
+
+  color: #FFFFFF;
+}
+
+.cards__favorites {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
