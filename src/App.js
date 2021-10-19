@@ -1,56 +1,63 @@
 import {useEffect, useState} from "react";
 import './App.css';
 
-import favorites from './images/favorites.svg';
-import favorites_selected from './images/favorites_selected.svg';
-
-function Header() {
-  return (
-    <header className="header">
-      <h1 className='header__title'>Event Listing</h1>
-    </header>
-  )
-}
-
-function Filter() {
-  return (
-    <div>Filter</div>
-  )
-}
-
-function Cards({cards}) {
-  const getDate = (date) => date[0] + date[1]
-
-  return (
-    <ul className='cards'>
-      {cards.map(card => (
-        <li className='cards__item'>
-          <img className='cards__img' src={card.image} alt=''/>
-          <p className="cards__date">{getDate(card.date)}</p>
-          <h2 className="cards__title">{card.name}</h2>
-          <img className="cards__favorites" src={favorites} alt="" />
-        </li>
-      ))}
-    </ul>
-  )
-}
+import {Cards} from "./components/Cards";
+import {Header} from "./components/Header";
+import {Filter} from "./components/Filter";
 
 function App() {
   const [cards, setCards] = useState([])
+  const [filteredCards, setFilteredCards] = useState([])
+  const [cities, setCities] = useState([])
+  const [filter, setFilter] = useState({
+    city: '',
+    month: ''
+  })
 
   useEffect(() => {
+    setFilteredCards([...cards])
+    setCities(() => {
+      const cities = cards.map(el => el.city).sort()
+      const uniqCities = new Set(cities)
+      return [...uniqCities]
+    })
+  }, [cards])
+
+  useEffect(() => {
+    console.log('fetch...')
     fetch('https://raw.githubusercontent.com/xsolla/xsolla-frontend-school-2021/main/events.json')
       .then(res => res.json())
       .then(res => setCards(res))
       .catch((err) => console.log(err));
   }, [])
 
+  const filterChange = (evt) => {
+    setFilter((state) => ({
+      ...state,
+      [evt.target.name]: evt.target.value,
+    }))
+  }
+
+  useEffect(() => {
+    console.log('useEffect filter')
+    const getMonth = (month) => month[3] + month[4]
+
+    if (filter.city && filter.month) {
+      setFilteredCards([...cards].filter(card => card.city === filter.city && getMonth(card.date) === filter.month))
+      return
+    }
+
+    if (!filter.city && !filter.month) {
+      setFilteredCards([...cards])
+    }
+  }, [filter, cards])
+
   return (
     <div className="App">
       <div className="container">
         <Header/>
-        <Filter/>
-        <Cards cards={cards}/>
+        <Filter cities={cities} handleChange={filterChange} filter={filter}/>
+        <Cards cards={filteredCards}/>
       </div>
 
     </div>
