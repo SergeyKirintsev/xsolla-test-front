@@ -40,16 +40,12 @@ function App() {
 
   useEffect(() => {
     console.log('useEffect filter')
-    const getMonth = (month) => month[3] + month[4]
+    const getMonth = (date) => date[3] + date[4]
 
-    if (filter.city && filter.month) {
-      setFilteredCards([...cards].filter(card => card.city === filter.city && getMonth(card.date) === filter.month))
-      return
-    }
-
-    if (!filter.city && !filter.month) {
-      setFilteredCards([...cards])
-    }
+    setFilteredCards([...cards].filter(card => {
+      return (!!filter.city ? card.city === filter.city : true)
+      && (!!filter.month ? getMonth(card.date) === filter.month : true)
+    }))
   }, [filter, cards])
 
   return (
