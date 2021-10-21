@@ -4,6 +4,7 @@ import './App.css';
 import {Cards} from "./components/Cards";
 import {Header} from "./components/Header";
 import {Filter} from "./components/Filter";
+import favorites from "./images/favorites.svg";
 
 function App() {
   const [cards, setCards] = useState([])
@@ -48,12 +49,16 @@ function App() {
     }))
   }, [filter, cards])
 
+  const toggleFavorites = (id) => {
+    console.log('toggleFavorites', id)
+  }
+
   return (
     <div className="App">
       <div className="container">
         <Header/>
         <Filter cities={cities} handleChange={filterChange} filter={filter}/>
-        <Cards cards={filteredCards}/>
+        <Cards cards={filteredCards} toggleFavorites={toggleFavorites}/>
       </div>
 
     </div>

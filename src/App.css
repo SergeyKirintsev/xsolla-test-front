@@ -1,3 +1,25 @@
+@keyframes kenburns-bottom-left {
+  0% {
+    transform: scale(1) translate(0, 0);
+    transform-origin: 16% 84%;
+  }
+  100% {
+    transform: scale(1.1) translate(-20px, 15px);
+    transform-origin: left bottom;
+  }
+}
+
+@keyframes kenburns-bottom-right {
+  0% {
+    transform: scale(1.1) translate(-20px, 15px);
+    transform-origin: left bottom;
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+    transform-origin: 16% 84%;
+  }
+}
+
 .container {
   outline: 1px solid red;
   max-width: 1440px;
@@ -34,6 +56,7 @@
 
 .cards__item {
   position: relative;
+  overflow: hidden;
 }
 
 .cards__img {
@@ -41,6 +64,11 @@
   max-height: 400px;
   height: 100%;
   border-radius: 6px;
+  animation: kenburns-bottom-right 1s ease-out both;
+}
+
+.cards__img:hover {
+  animation: kenburns-bottom-left 1s ease-out both;
 }
 
 .cards__date {
@@ -80,12 +108,21 @@
 
 
   color: #FFFFFF;
+  max-width: 80%;
 }
 
 .cards__favorites {
   position: absolute;
   top: 40px;
   right: 40px;
+
+  cursor: pointer;
+  padding: 5px;
+  transition: .5s;
+}
+
+.cards__favorites:hover {
+  transform: scale(1.1);
 }
 
 .filter__form {
@@ -96,3 +133,8 @@
   margin-right: 10px;
 }
 
+.block {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
