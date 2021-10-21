@@ -15,7 +15,7 @@ function App() {
   })
 
   useEffect(() => {
-    setFilteredCards([...cards])
+    // setFilteredCards([...cards])
     setCities(() => {
       const cities = cards.map(el => el.city).sort()
       const uniqCities = new Set(cities)

@@ -1,7 +1,7 @@
 function Filter({cities, handleSubmit, handleChange, filter}) {
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <form onSubmit={handleSubmit} className='filter__form'>
+      <label className='filter__label'>
         City:
         <select name='city' value={filter.city} onChange={(evt) => handleChange(evt)}>
           <option value=''>Select city</option>
@@ -10,7 +10,7 @@ function Filter({cities, handleSubmit, handleChange, filter}) {
           )}
         </select>
       </label>
-      <label>
+      <label className='filter__label'>
         Month:
         <select name='month' value={filter.month} onChange={(evt) => handleChange(evt)}>
           <option value=''>Select month</option>

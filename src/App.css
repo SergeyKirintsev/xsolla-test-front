@@ -88,3 +88,11 @@
   right: 40px;
 }
 
+.filter__form {
+  margin: 15px 0;
+}
+
+.filter__label {
+  margin-right: 10px;
+}
+
