@@ -21,7 +21,6 @@
 }
 
 .container {
-  outline: 1px solid red;
   max-width: 1440px;
   padding: 100px;
   margin: 0 auto;
