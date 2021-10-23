@@ -1,0 +1,45 @@
+.switcher {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+.switcher__input {
+    position: absolute;
+    width: 1px; /* если у элемента не будет размеров, некоторые браузеры посчитают, что его вообще нет */
+    height: 1px;
+    overflow: hidden; /* без этого свойства тоже сработает, но так наверняка. Мы его ещё изучим, оно скрывает элементы, выходящие за границы родителя */
+    clip: rect(0 0 0 0);
+}
+
+.switcher__span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #769fd2;
+    border-radius: 20px;
+}
+
+.switcher__span:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background: #ccc;
+    transition: .4s;
+    border: 1px solid white;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.switcher__input:checked + .switcher__span:before {
+    transform: translateX(16px);
+    background: #2BE080;
+}
