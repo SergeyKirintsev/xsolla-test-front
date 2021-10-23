@@ -1,0 +1,11 @@
+.header__title {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 66px;
+  /* identical to box height */
+
+
+  color: #2E282C;
+}

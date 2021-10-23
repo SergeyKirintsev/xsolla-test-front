@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import './App.css';
 
-import {Cards} from "./components/Cards";
-import {Header} from "./components/Header";
-import {Filter} from "./components/Filter";
+import {Cards} from "../Cards/Cards";
+import {Header} from "../Header/Header";
+import {Filter} from "../Filter/Filter";
 
 function App() {
   const [cards, setCards] = useState([])
@@ -16,23 +16,15 @@ function App() {
   })
 
   useEffect(() => {
-    // setFilteredCards([...cards])
     setCities(() => {
       const cities = cards.map(el => el.city).sort()
       const uniqCities = new Set(cities)
       return [...uniqCities]
     })
-    // saveFav()
   }, [cards])
 
   useEffect(() => {
-    // const tmpFav = ['01', '02', '031']
-    // localStorage.setItem('fav', JSON.stringify(tmpFav));
-    // const fav = ['01', '02', '03']
     const fav = JSON.parse(localStorage.getItem('fav')) || []
-    console.log(fav)
-
-    console.log('fetch...')
     fetch('https://raw.githubusercontent.com/xsolla/xsolla-frontend-school-2021/main/events.json')
       .then(res => res.json())
       .then(res => setCards(
@@ -42,7 +34,6 @@ function App() {
         })
       ))
       .catch((err) => console.log(err));
-
   }, [])
 
   const filterChange = (evt) => {
@@ -57,18 +48,16 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('useEffect filter')
     const getMonth = (date) => date[3] + date[4]
 
     setFilteredCards([...cards].filter(card => {
       return (!!filter.city ? card.city === filter.city : true)
-      && (!!filter.month ? getMonth(card.date) === filter.month : true)
-      && (filter.fav ? card.fav : true)
+        && (!!filter.month ? getMonth(card.date) === filter.month : true)
+        && (filter.fav ? card.fav : true)
     }))
   }, [filter, cards])
 
   const toggleFavorites = (id) => {
-    console.log('toggleFavorites', id)
     setCards((state) => {
         const newState = state.map((c) => {
           if (c.id === id) {
@@ -94,7 +83,6 @@ function App() {
         <Filter cities={cities} handleChange={filterChange} filter={filter}/>
         <Cards cards={filteredCards} toggleFavorites={toggleFavorites}/>
       </div>
-
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
+import './Filter.css';
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function Filter({cities, handleSubmit, handleChange, filter}) {
   return (

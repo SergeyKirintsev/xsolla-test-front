@@ -1,5 +1,6 @@
-import favorites from "../images/favorites.svg";
-import favorites_selected from "../images/favorites_selected.svg";
+import './Cards.css';
+import favorites from "../../images/favorites.svg";
+import favorites_selected from "../../images/favorites_selected.svg";
 
 function Cards({cards, toggleFavorites}) {
   const getDate = (date) => date[0] + date[1]
