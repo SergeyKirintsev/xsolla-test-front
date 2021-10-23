@@ -11,7 +11,8 @@ function App() {
   const [cities, setCities] = useState([])
   const [filter, setFilter] = useState({
     city: '',
-    month: ''
+    month: '',
+    fav: false
   })
 
   useEffect(() => {
@@ -45,9 +46,13 @@ function App() {
   }, [])
 
   const filterChange = (evt) => {
+    const target = evt.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
     setFilter((state) => ({
       ...state,
-      [evt.target.name]: evt.target.value,
+      [name]: value,
     }))
   }
 
@@ -58,6 +63,7 @@ function App() {
     setFilteredCards([...cards].filter(card => {
       return (!!filter.city ? card.city === filter.city : true)
       && (!!filter.month ? getMonth(card.date) === filter.month : true)
+      && (filter.fav ? card.fav : true)
     }))
   }, [filter, cards])
 
