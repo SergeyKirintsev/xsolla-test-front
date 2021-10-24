@@ -1,6 +1,6 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox({title, handleChange, filter}) {
+function FilterCheckbox({title, dispatchFilter, filter}) {
   return (
     <div>
       <label className="switcher">
@@ -8,7 +8,7 @@ function FilterCheckbox({title, handleChange, filter}) {
           className="switcher__input"
           type="checkbox"
           name="fav"
-          onChange={handleChange}
+          onChange={() => dispatchFilter({type: 'fav'})}
           checked={filter.fav}
         />
         <span className="switcher__span"/>

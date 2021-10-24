@@ -1,13 +1,20 @@
 import './Filter.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function Filter({cities, handleSubmit, handleChange, filter}) {
+function Filter({cities, handleSubmit, dispatchFilter, filter}) {
   return (
     <form onSubmit={handleSubmit} className='filter__form'>
       <div>
         <label className='filter__label'>
           City:
-          <select name='city' value={filter.city} onChange={handleChange}>
+          <select
+            name='city'
+            value={filter.city}
+            onChange={(evt) => dispatchFilter({
+              type: 'city',
+              payload: evt.target.value
+            })}
+          >
             <option value=''>Select city</option>
             {cities.map(city =>
               <option key={city} value={city}>{city}</option>
@@ -16,7 +23,14 @@ function Filter({cities, handleSubmit, handleChange, filter}) {
         </label>
         <label className='filter__label'>
           Month:
-          <select name='month' value={filter.month} onChange={handleChange}>
+          <select
+            name='month'
+            value={filter.month}
+            onChange={(evt) => dispatchFilter({
+              type: 'month',
+              payload: evt.target.value
+            })}
+          >
             <option value=''>Select month</option>
             <option value='01'>January</option>
             <option value='02'>February</option>
@@ -33,7 +47,7 @@ function Filter({cities, handleSubmit, handleChange, filter}) {
           </select>
         </label>
       </div>
-      <FilterCheckbox title='Избранное' handleChange={handleChange} filter={filter}/>
+      <FilterCheckbox title='Избранное' dispatchFilter={dispatchFilter} filter={filter}/>
     </form>
   )
 }

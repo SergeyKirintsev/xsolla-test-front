@@ -1,5 +1,6 @@
-import {useEffect, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import './App.css';
+import {initialFilter, reducerFilter} from '../../store/filter';
 
 import {Cards} from "../Cards/Cards";
 import {Header} from "../Header/Header";
@@ -9,11 +10,7 @@ function App() {
   const [cards, setCards] = useState([])
   const [filteredCards, setFilteredCards] = useState([])
   const [cities, setCities] = useState([])
-  const [filter, setFilter] = useState({
-    city: '',
-    month: '',
-    fav: false
-  })
+  const [filter, dispatchFilter] = useReducer(reducerFilter, initialFilter)
 
   useEffect(() => {
     setCities(() => {
@@ -24,7 +21,7 @@ function App() {
   }, [cards])
 
   useEffect(() => {
-    const fav = JSON.parse(localStorage.getItem('fav')) || []
+    const fav = loadFavFromLocalStorage()
     fetch('https://raw.githubusercontent.com/xsolla/xsolla-frontend-school-2021/main/events.json')
       .then(res => res.json())
       .then(res => setCards(
@@ -35,17 +32,6 @@ function App() {
       ))
       .catch((err) => console.log(err));
   }, [])
-
-  const filterChange = (evt) => {
-    const target = evt.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    setFilter((state) => ({
-      ...state,
-      [name]: value,
-    }))
-  }
 
   useEffect(() => {
     const getMonth = (date) => date[3] + date[4]
@@ -65,22 +51,24 @@ function App() {
           }
           return c
         })
-        saveFav(newState)
+        saveFavToLocalStorage(newState)
         return newState
       }
     )
   }
 
-  const saveFav = (arr) => {
+  const saveFavToLocalStorage = (arr) => {
     const favId = arr.filter(el => el.fav).map(el => el.id)
     localStorage.setItem('fav', JSON.stringify(favId));
   }
+
+  const loadFavFromLocalStorage = () => JSON.parse(localStorage.getItem('fav')) || []
 
   return (
     <div className="App">
       <div className="container">
         <Header/>
-        <Filter cities={cities} handleChange={filterChange} filter={filter}/>
+        <Filter cities={cities} dispatchFilter={dispatchFilter} filter={filter}/>
         <Cards cards={filteredCards} toggleFavorites={toggleFavorites}/>
       </div>
     </div>
