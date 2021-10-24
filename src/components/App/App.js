@@ -35,11 +35,14 @@ function App() {
 
   useEffect(() => {
     const getMonth = (date) => date[3] + date[4]
+    const filterCity = (cardCity) => !!filter.city ? cardCity === filter.city : true
+    const filterMonth = (cardDate) => !!filter.month ? getMonth(cardDate) === filter.month : true
+    const filterFav = (cardFav) => filter.fav ? cardFav : true
 
     setFilteredCards([...cards].filter(card => {
-      return (!!filter.city ? card.city === filter.city : true)
-        && (!!filter.month ? getMonth(card.date) === filter.month : true)
-        && (filter.fav ? card.fav : true)
+      return filterCity(card.city)
+        && filterMonth(card.date)
+        && filterFav(card.fav)
     }))
   }, [filter, cards])
 
